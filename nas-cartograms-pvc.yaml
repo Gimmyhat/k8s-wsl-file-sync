@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nas-cartograms-pvc
+spec:
+  accessModes:
+    - ReadWriteMany  # Позволяет монтировать как ReadWrite для нескольких нод
+  resources:
+    requests:
+      storage: 550Gi  # Размер чуть больше, чем 500+ ГБ данных
+  storageClassName: nfs-client  # Используем nfs-client для сетевого хранилища 
+
+

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nas-cartograms-rsync-pod
+  labels:
+    app: nas-cartograms-rsync
+spec:
+  containers:
+  - name: rsync
+    image: gimmyhat/nas-cartograms-rsync:latest
+    ports:
+    - containerPort: 22
+      name: ssh
+    volumeMounts:
+    - name: data-pvc
+      mountPath: /data
+    securityContext:
+      privileged: true  # Нужно для полного доступа к файловой системе
+  volumes:
+  - name: data-pvc
+    persistentVolumeClaim:
+      claimName: nas-cartograms-pvc  # Имя вашего PVC в кластере
+  restartPolicy: Never 
